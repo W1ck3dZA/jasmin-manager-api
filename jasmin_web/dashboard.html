@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasmin SMS Gateway - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Jasmin Gateway</h2>
+                <p>Management Portal</p>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-section="dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-section="users">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-section="groups">Groups</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-section="connectors">Connectors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-section="routers">Routers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-section="filters">Filters</a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <h1>Dashboard</h1>
+                <div class="user-info">
+                    <span id="username">Admin</span>
+                    <button class="btn btn-secondary btn-sm" id="logout-btn">Logout</button>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content">
+                <!-- Dashboard Section -->
+                <div id="dashboard-section" class="section">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Total Users</h3>
+                            <div class="value" id="stat-users">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Groups</h3>
+                            <div class="value" id="stat-groups">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Connectors</h3>
+                            <div class="value" id="stat-connectors">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Routers</h3>
+                            <div class="value" id="stat-routers">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Filters</h3>
+                            <div class="value" id="stat-filters">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Active SMPP</h3>
+                            <div class="value" id="stat-active-smpp">0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Section -->
+                <div id="users-section" class="section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Users Management</h2>
+                            <button class="btn btn-primary" onclick="Users.showCreateModal()">Create User</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="search-bar">
+                                <input type="text" id="users-search" placeholder="Search users..." onkeyup="Users.search(this.value)">
+                            </div>
+                            <div class="table-container">
+                                <table id="users-table">
+                                    <thead>
+                                        <tr>
+                                            <th>User ID</th>
+                                            <th>Username</th>
+                                            <th>Group</th>
+                                            <th>Balance</th>
+                                            <th>SMS Count</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="users-tbody">
+                                        <tr>
+                                            <td colspan="7" class="text-center">Loading...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Groups Section -->
+                <div id="groups-section" class="section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Groups Management</h2>
+                            <button class="btn btn-primary" onclick="Groups.showCreateModal()">Create Group</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table id="groups-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Group ID</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="groups-tbody">
+                                        <tr>
+                                            <td colspan="3" class="text-center">Loading...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connectors Section -->
+                <div id="connectors-section" class="section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Connectors Management</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="tabs">
+                                <button class="tab active" onclick="Connectors.switchTab('smpp')">SMPP Connectors</button>
+                                <button class="tab" onclick="Connectors.switchTab('http')">HTTP Connectors</button>
+                            </div>
+                            
+                            <!-- SMPP Tab -->
+                            <div id="smpp-tab" class="tab-content active">
+                                <button class="btn btn-primary mb-20" onclick="Connectors.showCreateSMPPModal()">Create SMPP Connector</button>
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Host</th>
+                                                <th>Port</th>
+                                                <th>Status</th>
+                                                <th>Session</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="smpp-tbody">
+                                            <tr>
+                                                <td colspan="6" class="text-center">Loading...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- HTTP Tab -->
+                            <div id="http-tab" class="tab-content">
+                                <button class="btn btn-primary mb-20" onclick="Connectors.showCreateHTTPModal()">Create HTTP Connector</button>
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>URL</th>
+                                                <th>Method</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="http-tbody">
+                                            <tr>
+                                                <td colspan="4" class="text-center">Loading...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Routers Section -->
+                <div id="routers-section" class="section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Routers Management</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="tabs">
+                                <button class="tab active" onclick="Routers.switchTab('mt')">MT Routers</button>
+                                <button class="tab" onclick="Routers.switchTab('mo')">MO Routers</button>
+                            </div>
+                            
+                            <!-- MT Tab -->
+                            <div id="mt-tab" class="tab-content active">
+                                <div class="flex-between mb-20">
+                                    <button class="btn btn-primary" onclick="Routers.showCreateMTModal()">Create MT Router</button>
+                                    <button class="btn btn-danger" onclick="Routers.flushMT()">Flush All</button>
+                                </div>
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Order</th>
+                                                <th>Type</th>
+                                                <th>Rate</th>
+                                                <th>Connectors</th>
+                                                <th>Filters</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="mt-tbody">
+                                            <tr>
+                                                <td colspan="6" class="text-center">Loading...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <!-- MO Tab -->
+                            <div id="mo-tab" class="tab-content">
+                                <div class="flex-between mb-20">
+                                    <button class="btn btn-primary" onclick="Routers.showCreateMOModal()">Create MO Router</button>
+                                    <button class="btn btn-danger" onclick="Routers.flushMO()">Flush All</button>
+                                </div>
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Order</th>
+                                                <th>Type</th>
+                                                <th>Connectors</th>
+                                                <th>Filters</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="mo-tbody">
+                                            <tr>
+                                                <td colspan="5" class="text-center">Loading...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters Section -->
+                <div id="filters-section" class="section hidden">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Filters Management</h2>
+                            <button class="btn btn-primary" onclick="Filters.showCreateModal()">Create Filter</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Filter ID</th>
+                                            <th>Type</th>
+                                            <th>Description</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="filters-tbody">
+                                        <tr>
+                                            <td colspan="4" class="text-center">Loading...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/users.js"></script>
+    <script src="js/groups.js"></script>
+    <script src="js/connectors.js"></script>
+    <script src="js/routers.js"></script>
+    <script src="js/filters.js"></script>
+</body>
+</html>

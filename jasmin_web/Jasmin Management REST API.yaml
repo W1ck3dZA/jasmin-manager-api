@@ -1,0 +1,1496 @@
+openapi: 3.0.3
+info:
+  title: Jasmin Management REST API
+  version: 1.0.0
+  description: A REST API for managing Jasmin SMS Gateway
+paths:
+  /api/filters:
+    get:
+      operationId: api_filters_list
+      description: List all filters
+      tags:
+      - Filters
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FilterList'
+          description: ''
+    post:
+      operationId: api_filters_create
+      description: Create a new filter
+      tags:
+      - Filters
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FilterCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FilterCreate'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterDetail'
+          description: ''
+  /api/filters/{fid}:
+    get:
+      operationId: api_filters_retrieve
+      description: Retrieve details for a specific filter
+      parameters:
+      - in: path
+        name: fid
+        schema:
+          type: string
+        description: Filter identifier
+        required: true
+      tags:
+      - Filters
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterDetail'
+          description: ''
+    delete:
+      operationId: api_filters_destroy
+      description: Delete a filter
+      parameters:
+      - in: path
+        name: fid
+        schema:
+          type: string
+        description: Filter identifier
+        required: true
+      tags:
+      - Filters
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/groups:
+    get:
+      operationId: api_groups_list
+      description: List all groups
+      tags:
+      - Groups
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GroupList'
+          description: ''
+    post:
+      operationId: api_groups_create
+      description: Create a new group
+      tags:
+      - Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupCreate'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleResponse'
+          description: ''
+  /api/groups/{gid}:
+    delete:
+      operationId: api_groups_destroy
+      description: Delete a group
+      parameters:
+      - in: path
+        name: gid
+        schema:
+          type: string
+        description: Group identifier
+        required: true
+      tags:
+      - Groups
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/groups/{gid}/disable:
+    put:
+      operationId: api_groups_disable_update
+      description: Disable a group
+      parameters:
+      - in: path
+        name: gid
+        schema:
+          type: string
+        description: Group identifier
+        required: true
+      tags:
+      - Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupList'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleResponse'
+          description: ''
+  /api/groups/{gid}/enable:
+    put:
+      operationId: api_groups_enable_update
+      description: Enable a group
+      parameters:
+      - in: path
+        name: gid
+        schema:
+          type: string
+        description: Group identifier
+        required: true
+      tags:
+      - Groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GroupList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GroupList'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleResponse'
+          description: ''
+  /api/httpsconns:
+    get:
+      operationId: api_httpsconns_list
+      description: List all HTTP Client Connectors
+      tags:
+      - Connectors - HTTP
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HTTPCCMList'
+          description: ''
+    post:
+      operationId: api_httpsconns_create
+      description: Create a new HTTP Client Connector
+      tags:
+      - Connectors - HTTP
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HTTPCCMCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/HTTPCCMCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/HTTPCCMCreate'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleResponse'
+          description: ''
+  /api/httpsconns/{cid}:
+    get:
+      operationId: api_httpsconns_retrieve
+      description: Retrieve details for a specific HTTP connector
+      parameters:
+      - in: path
+        name: cid
+        schema:
+          type: string
+        description: Connector identifier
+        required: true
+      tags:
+      - Connectors - HTTP
+      security:
+      - basicAuth: []
+      responses:
+        connector:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPCCMList'
+          description: ''
+    delete:
+      operationId: api_httpsconns_destroy
+      description: Delete an HTTP connector
+      parameters:
+      - in: path
+        name: cid
+        schema:
+          type: string
+        description: Connector identifier
+        required: true
+      tags:
+      - Connectors - HTTP
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/morouters:
+    get:
+      operationId: api_morouters_list
+      description: List all MO routers
+      tags:
+      - Routers - MO
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MORouterList'
+          description: ''
+    post:
+      operationId: api_morouters_create
+      description: Create a new MO router
+      tags:
+      - Routers - MO
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MORouterCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MORouterCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MORouterCreate'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MORouterDetail'
+          description: ''
+  /api/morouters/{order}:
+    get:
+      operationId: api_morouters_retrieve
+      description: Retrieve details for a specific MO router
+      parameters:
+      - in: path
+        name: order
+        schema:
+          type: string
+        description: Router order
+        required: true
+      tags:
+      - Routers - MO
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MORouterDetail'
+          description: ''
+    delete:
+      operationId: api_morouters_destroy
+      description: Delete an MO router
+      parameters:
+      - in: path
+        name: order
+        schema:
+          type: string
+        description: Router order
+        required: true
+      tags:
+      - Routers - MO
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/morouters/flush:
+    delete:
+      operationId: api_morouters_flush_destroy
+      description: Flush entire MO routing table
+      tags:
+      - Routers - MO
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/mtrouters:
+    get:
+      operationId: api_mtrouters_list
+      description: List all MT routers
+      tags:
+      - Routers - MT
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MTRouterList'
+          description: ''
+    post:
+      operationId: api_mtrouters_create
+      description: Create a new MT router
+      tags:
+      - Routers - MT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MTRouterCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MTRouterCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MTRouterCreate'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MTRouterDetail'
+          description: ''
+  /api/mtrouters/{order}:
+    get:
+      operationId: api_mtrouters_retrieve
+      description: Retrieve details for a specific MT router
+      parameters:
+      - in: path
+        name: order
+        schema:
+          type: string
+        description: Router order
+        required: true
+      tags:
+      - Routers - MT
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MTRouterDetail'
+          description: ''
+    delete:
+      operationId: api_mtrouters_destroy
+      description: Delete an MT router
+      parameters:
+      - in: path
+        name: order
+        schema:
+          type: string
+        description: Router order
+        required: true
+      tags:
+      - Routers - MT
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/mtrouters/flush:
+    delete:
+      operationId: api_mtrouters_flush_destroy
+      description: Flush entire MT routing table
+      tags:
+      - Routers - MT
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/smppsconns:
+    get:
+      operationId: api_smppsconns_list
+      description: List all SMPP Client Connectors
+      tags:
+      - Connectors - SMPP
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SMPPCCMList'
+          description: ''
+    post:
+      operationId: api_smppsconns_create
+      description: Create a new SMPP Client Connector
+      tags:
+      - Connectors - SMPP
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMPPCCMCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SMPPCCMCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SMPPCCMCreate'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleResponse'
+          description: ''
+  /api/smppsconns/{cid}:
+    get:
+      operationId: api_smppsconns_retrieve
+      description: Retrieve details for a specific SMPP connector
+      parameters:
+      - in: path
+        name: cid
+        schema:
+          type: string
+        description: Connector identifier
+        required: true
+      tags:
+      - Connectors - SMPP
+      security:
+      - basicAuth: []
+      responses:
+        connector:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMPPCCMList'
+          description: ''
+    patch:
+      operationId: api_smppsconns_partial_update
+      description: Update SMPP connector attributes
+      parameters:
+      - in: path
+        name: cid
+        schema:
+          type: string
+        description: Connector identifier
+        required: true
+      tags:
+      - Connectors - SMPP
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Key-value pairs to update
+      security:
+      - basicAuth: []
+      responses:
+        connector:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMPPCCMList'
+          description: ''
+    delete:
+      operationId: api_smppsconns_destroy
+      description: Delete an SMPP connector
+      parameters:
+      - in: path
+        name: cid
+        schema:
+          type: string
+        description: Connector identifier
+        required: true
+      tags:
+      - Connectors - SMPP
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/smppsconns/{cid}/start:
+    put:
+      operationId: api_smppsconns_start_update
+      description: Start SMPP connector
+      parameters:
+      - in: path
+        name: cid
+        schema:
+          type: string
+        description: Connector identifier
+        required: true
+      tags:
+      - Connectors - SMPP
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMPPCCMList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SMPPCCMList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SMPPCCMList'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleResponse'
+          description: ''
+  /api/smppsconns/{cid}/stop:
+    put:
+      operationId: api_smppsconns_stop_update
+      description: Stop SMPP connector
+      parameters:
+      - in: path
+        name: cid
+        schema:
+          type: string
+        description: Connector identifier
+        required: true
+      tags:
+      - Connectors - SMPP
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMPPCCMList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SMPPCCMList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SMPPCCMList'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimpleResponse'
+          description: ''
+  /api/users:
+    get:
+      operationId: api_users_list
+      description: List all users
+      tags:
+      - Users
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserList'
+          description: ''
+    post:
+      operationId: api_users_create
+      description: Create a new user
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+          description: ''
+  /api/users/{uid}:
+    get:
+      operationId: api_users_retrieve
+      description: Retrieve details for a specific user
+      parameters:
+      - in: path
+        name: uid
+        schema:
+          type: string
+        description: User identifier
+        required: true
+      tags:
+      - Users
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+          description: ''
+    patch:
+      operationId: api_users_partial_update
+      description: Update user attributes
+      parameters:
+      - in: path
+        name: uid
+        schema:
+          type: string
+        description: User identifier
+        required: true
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserUpdate'
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+          description: ''
+    delete:
+      operationId: api_users_destroy
+      description: Delete a user
+      parameters:
+      - in: path
+        name: uid
+        schema:
+          type: string
+        description: User identifier
+        required: true
+      tags:
+      - Users
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/users/{uid}/disable:
+    put:
+      operationId: api_users_disable_update
+      description: Disable a user
+      parameters:
+      - in: path
+        name: uid
+        schema:
+          type: string
+        description: User identifier
+        required: true
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserList'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+          description: ''
+  /api/users/{uid}/enable:
+    put:
+      operationId: api_users_enable_update
+      description: Enable a user
+      parameters:
+      - in: path
+        name: uid
+        schema:
+          type: string
+        description: User identifier
+        required: true
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserList'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+          description: ''
+  /api/users/{uid}/smpp_ban:
+    put:
+      operationId: api_users_smpp_ban_update
+      description: Ban and unbind user from SMPP server
+      parameters:
+      - in: path
+        name: uid
+        schema:
+          type: string
+        description: User identifier
+        required: true
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserList'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+          description: ''
+  /api/users/{uid}/smpp_unbind:
+    put:
+      operationId: api_users_smpp_unbind_update
+      description: Unbind user from SMPP server
+      parameters:
+      - in: path
+        name: uid
+        schema:
+          type: string
+        description: User identifier
+        required: true
+      tags:
+      - Users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserList'
+        required: true
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDetail'
+          description: ''
+components:
+  schemas:
+    BindEnum:
+      enum:
+      - transceiver
+      - transmitter
+      - receiver
+      type: string
+      description: |-
+        * `transceiver` - transceiver
+        * `transmitter` - transmitter
+        * `receiver` - receiver
+    Filter:
+      type: object
+      description: Serializer for Filter objects
+      properties:
+        fid:
+          type: string
+          description: Filter identifier
+        type:
+          type: string
+          description: Filter type
+        routes:
+          type: string
+          description: Routes information
+        description:
+          type: string
+          description: Filter description
+      required:
+      - description
+      - fid
+      - routes
+      - type
+    FilterCreate:
+      type: object
+      description: Serializer for creating a filter
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/FilterCreateTypeEnum'
+          description: |-
+            Filter type
+
+            * `TransparentFilter` - TransparentFilter
+            * `ConnectorFilter` - ConnectorFilter
+            * `UserFilter` - UserFilter
+            * `GroupFilter` - GroupFilter
+            * `SourceAddrFilter` - SourceAddrFilter
+            * `DestinationAddrFilter` - DestinationAddrFilter
+            * `ShortMessageFilter` - ShortMessageFilter
+            * `DateIntervalFilter` - DateIntervalFilter
+            * `TimeIntervalFilter` - TimeIntervalFilter
+            * `TagFilter` - TagFilter
+            * `EvalPyFilter` - EvalPyFilter
+        fid:
+          type: string
+          description: Filter identifier
+        parameter:
+          type: string
+          description: Parameter required for most filter types
+      required:
+      - fid
+      - type
+    FilterCreateTypeEnum:
+      enum:
+      - TransparentFilter
+      - ConnectorFilter
+      - UserFilter
+      - GroupFilter
+      - SourceAddrFilter
+      - DestinationAddrFilter
+      - ShortMessageFilter
+      - DateIntervalFilter
+      - TimeIntervalFilter
+      - TagFilter
+      - EvalPyFilter
+      type: string
+      description: |-
+        * `TransparentFilter` - TransparentFilter
+        * `ConnectorFilter` - ConnectorFilter
+        * `UserFilter` - UserFilter
+        * `GroupFilter` - GroupFilter
+        * `SourceAddrFilter` - SourceAddrFilter
+        * `DestinationAddrFilter` - DestinationAddrFilter
+        * `ShortMessageFilter` - ShortMessageFilter
+        * `DateIntervalFilter` - DateIntervalFilter
+        * `TimeIntervalFilter` - TimeIntervalFilter
+        * `TagFilter` - TagFilter
+        * `EvalPyFilter` - EvalPyFilter
+    FilterDetail:
+      type: object
+      description: Serializer for single filter detail
+      properties:
+        filter:
+          $ref: '#/components/schemas/Filter'
+      required:
+      - filter
+    FilterList:
+      type: object
+      description: Serializer for list of filters
+      properties:
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/Filter'
+      required:
+      - filters
+    Group:
+      type: object
+      description: Serializer for Group objects
+      properties:
+        name:
+          type: string
+          description: Group name/identifier
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          description: |-
+            Group status
+
+            * `enabled` - enabled
+            * `disabled` - disabled
+      required:
+      - name
+      - status
+    GroupCreate:
+      type: object
+      description: Serializer for creating a group
+      properties:
+        gid:
+          type: string
+          description: Group identifier
+      required:
+      - gid
+    GroupList:
+      type: object
+      description: Serializer for list of groups
+      properties:
+        groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/Group'
+      required:
+      - groups
+    HTTPCCM:
+      type: object
+      description: Serializer for HTTP Client Connector
+      properties:
+        cid:
+          type: string
+          description: Connector identifier
+        url:
+          type: string
+          description: HTTP endpoint URL to send messages to
+        method:
+          allOf:
+          - $ref: '#/components/schemas/MethodEnum'
+          description: |-
+            HTTP method to use (GET or POST)
+
+            * `GET` - GET
+            * `POST` - POST
+        type:
+          type: string
+          description: Connector type
+      required:
+      - cid
+    HTTPCCMCreate:
+      type: object
+      description: Serializer for creating HTTP connector
+      properties:
+        cid:
+          type: string
+          description: Connector identifier (unique)
+        url:
+          type: string
+          description: HTTP endpoint URL to send messages to
+        method:
+          allOf:
+          - $ref: '#/components/schemas/MethodEnum'
+          description: |-
+            HTTP method to use (GET or POST)
+
+            * `GET` - GET
+            * `POST` - POST
+      required:
+      - cid
+      - method
+      - url
+    HTTPCCMList:
+      type: object
+      description: Serializer for list of HTTP connectors
+      properties:
+        connectors:
+          type: array
+          items:
+            $ref: '#/components/schemas/HTTPCCM'
+      required:
+      - connectors
+    MORouter:
+      type: object
+      description: Serializer for MO Router
+      properties:
+        order:
+          type: string
+          description: Router order/priority (lower numbers = higher priority)
+        type:
+          type: string
+          description: Router type (DefaultRoute, StaticMORoute, RandomRoundrobinMORoute)
+        connectors:
+          type: array
+          items:
+            type: string
+          description: List of connector identifiers
+        filters:
+          type: array
+          items:
+            type: string
+          description: List of filter identifiers (not required for DefaultRoute)
+      required:
+      - connectors
+      - order
+      - type
+    MORouterCreate:
+      type: object
+      description: Serializer for creating MO router
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/MORouterCreateTypeEnum'
+          description: |-
+            Router type - DefaultRoute (catch-all), StaticMORoute (single connector), or RandomRoundrobinMORoute (load balance across multiple connectors)
+
+            * `DefaultRoute` - DefaultRoute
+            * `StaticMORoute` - StaticMORoute
+            * `RandomRoundrobinMORoute` - RandomRoundrobinMORoute
+        order:
+          type: string
+          description: Router order/priority - lower numbers have higher priority
+        smppconnectors:
+          type: string
+          description: Comma-separated list of SMPP connector IDs (e.g., 'conn1,conn2')
+        httpconnectors:
+          type: string
+          description: Comma-separated list of HTTP connector IDs (e.g., 'http1,http2')
+        filters:
+          type: string
+          description: Comma-separated list of filter IDs - required for all types
+            except DefaultRoute (e.g., 'filter1,filter2')
+      required:
+      - order
+      - type
+    MORouterCreateTypeEnum:
+      enum:
+      - DefaultRoute
+      - StaticMORoute
+      - RandomRoundrobinMORoute
+      type: string
+      description: |-
+        * `DefaultRoute` - DefaultRoute
+        * `StaticMORoute` - StaticMORoute
+        * `RandomRoundrobinMORoute` - RandomRoundrobinMORoute
+    MORouterDetail:
+      type: object
+      description: Serializer for single MO router detail
+      properties:
+        morouter:
+          $ref: '#/components/schemas/MORouter'
+      required:
+      - morouter
+    MORouterList:
+      type: object
+      description: Serializer for list of MO routers
+      properties:
+        morouters:
+          type: array
+          items:
+            $ref: '#/components/schemas/MORouter'
+      required:
+      - morouters
+    MTRouter:
+      type: object
+      description: Serializer for MT Router
+      properties:
+        order:
+          type: string
+          description: Router order/priority (lower numbers = higher priority)
+        type:
+          type: string
+          description: Router type (DefaultRoute, StaticMTRoute, RandomRoundrobinMTRoute)
+        rate:
+          type: string
+          description: Rate/cost for using this route (0 for free)
+        connectors:
+          type: array
+          items:
+            type: string
+          description: List of connector identifiers
+        filters:
+          type: array
+          items:
+            type: string
+          description: List of filter identifiers (not required for DefaultRoute)
+      required:
+      - connectors
+      - order
+      - rate
+      - type
+    MTRouterCreate:
+      type: object
+      description: Serializer for creating MT router
+      properties:
+        type:
+          allOf:
+          - $ref: '#/components/schemas/MTRouterCreateTypeEnum'
+          description: |-
+            Router type - DefaultRoute (catch-all), StaticMTRoute (single connector), or RandomRoundrobinMTRoute (load balance across multiple connectors)
+
+            * `DefaultRoute` - DefaultRoute
+            * `StaticMTRoute` - StaticMTRoute
+            * `RandomRoundrobinMTRoute` - RandomRoundrobinMTRoute
+        order:
+          type: string
+          description: Router order/priority - lower numbers have higher priority
+        rate:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,6}(?:\.\d{0,4})?$
+          description: Rate/cost for using this route (use 0 for free routing)
+        smppconnectors:
+          type: string
+          description: Comma-separated list of SMPP connector IDs (e.g., 'conn1,conn2')
+        httpconnectors:
+          type: string
+          description: Comma-separated list of HTTP connector IDs (e.g., 'http1,http2')
+        filters:
+          type: string
+          description: Comma-separated list of filter IDs - required for all types
+            except DefaultRoute (e.g., 'filter1,filter2')
+      required:
+      - order
+      - rate
+      - type
+    MTRouterCreateTypeEnum:
+      enum:
+      - DefaultRoute
+      - StaticMTRoute
+      - RandomRoundrobinMTRoute
+      type: string
+      description: |-
+        * `DefaultRoute` - DefaultRoute
+        * `StaticMTRoute` - StaticMTRoute
+        * `RandomRoundrobinMTRoute` - RandomRoundrobinMTRoute
+    MTRouterDetail:
+      type: object
+      description: Serializer for single MT router detail
+      properties:
+        mtrouter:
+          $ref: '#/components/schemas/MTRouter'
+      required:
+      - mtrouter
+    MTRouterList:
+      type: object
+      description: Serializer for list of MT routers
+      properties:
+        mtrouters:
+          type: array
+          items:
+            $ref: '#/components/schemas/MTRouter'
+      required:
+      - mtrouters
+    MethodEnum:
+      enum:
+      - GET
+      - POST
+      type: string
+      description: |-
+        * `GET` - GET
+        * `POST` - POST
+    PatchedUserUpdate:
+      type: object
+      description: Serializer for updating a user
+      properties:
+        updates:
+          type: array
+          items:
+            type: array
+            items:
+              type: string
+          description: List of update commands
+    SMPPCCM:
+      type: object
+      description: Serializer for SMPP Client Connector
+      properties:
+        cid:
+          type: string
+          description: Connector identifier
+        status:
+          type: string
+          description: Connector status (started/stopped)
+        session:
+          type: string
+          description: Session state (bound/unbound)
+        starts:
+          type: string
+          description: Number of times connector has started
+        stops:
+          type: string
+          description: Number of times connector has stopped
+        host:
+          type: string
+          description: SMPP server host
+        port:
+          type: integer
+          description: SMPP server port
+        username:
+          type: string
+          description: SMPP username
+        password:
+          type: string
+          description: SMPP password
+        systemType:
+          type: string
+          description: SMPP system type
+        systemId:
+          type: string
+          description: SMPP system ID
+      required:
+      - cid
+    SMPPCCMCreate:
+      type: object
+      description: Serializer for creating SMPP connector
+      properties:
+        cid:
+          type: string
+          description: Connector identifier (unique)
+        host:
+          type: string
+          description: SMPP server host address
+        port:
+          type: integer
+          description: 'SMPP server port (default: 2775)'
+        username:
+          type: string
+          description: SMPP authentication username
+        password:
+          type: string
+          description: SMPP authentication password
+        systemType:
+          type: string
+          description: SMPP system type
+        systemId:
+          type: string
+          description: SMPP system identifier
+        src_addr:
+          type: string
+          description: Source address
+        src_ton:
+          type: integer
+          description: Source Type of Number
+        src_npi:
+          type: integer
+          description: Source Numbering Plan Indicator
+        dst_ton:
+          type: integer
+          description: Destination Type of Number
+        dst_npi:
+          type: integer
+          description: Destination Numbering Plan Indicator
+        bind:
+          allOf:
+          - $ref: '#/components/schemas/BindEnum'
+          description: |-
+            Bind mode (transceiver, transmitter, or receiver)
+
+            * `transceiver` - transceiver
+            * `transmitter` - transmitter
+            * `receiver` - receiver
+      required:
+      - cid
+    SMPPCCMList:
+      type: object
+      description: Serializer for list of SMPP connectors
+      properties:
+        connectors:
+          type: array
+          items:
+            $ref: '#/components/schemas/SMPPCCM'
+      required:
+      - connectors
+    SimpleResponse:
+      type: object
+      description: Generic serializer for simple responses with just an ID
+      properties:
+        uid:
+          type: string
+          description: User identifier
+        gid:
+          type: string
+          description: Group identifier
+        fid:
+          type: string
+          description: Filter identifier
+        cid:
+          type: string
+          description: Connector identifier
+        order:
+          type: integer
+          description: Router order
+        name:
+          type: string
+          description: Name/identifier
+    StatusEnum:
+      enum:
+      - enabled
+      - disabled
+      type: string
+      description: |-
+        * `enabled` - enabled
+        * `disabled` - disabled
+    User:
+      type: object
+      description: Serializer for User objects
+      properties:
+        uid:
+          type: string
+          description: User identifier
+        gid:
+          type: string
+          description: Group identifier
+        username:
+          type: string
+          description: Username
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          description: |-
+            User status
+
+            * `enabled` - enabled
+            * `disabled` - disabled
+    UserCreate:
+      type: object
+      description: Serializer for creating a user
+      properties:
+        uid:
+          type: string
+          description: User identifier
+        gid:
+          type: string
+          description: Group identifier
+        username:
+          type: string
+          description: Username
+        password:
+          type: string
+          description: Password
+      required:
+      - gid
+      - password
+      - uid
+      - username
+    UserDetail:
+      type: object
+      description: Serializer for single user detail
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+      required:
+      - user
+    UserList:
+      type: object
+      description: Serializer for list of users
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+      required:
+      - users
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
