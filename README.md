@@ -1,4 +1,4 @@
-# jasmin-api
+# Jasmin Manager API
 Jasmin restful management API
 
 ## Documentation
